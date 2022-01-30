@@ -17,7 +17,6 @@ public class GlobalConfig {
 
     private static GlobalConfig singleInstance = new GlobalConfig();
     private final int serverSocketPort;
-    private final int clientSocketPort;
     private final int queueSize;
     private final int timeout;
 
@@ -32,20 +31,13 @@ public class GlobalConfig {
         }catch (IOException e){
             log.error("global-config.yml 파일 Read 실패");
         }
-        if(log.isDebugEnabled() && configMap != null){
-            log.debug(configMap.toString());
-        }
+
         Map server = (Map) configMap.get("server");
         Map serverSocket = (Map) server.get("socket");
 
         this.serverSocketPort = (int) serverSocket.get("port");
         this.queueSize = (int) serverSocket.get("queuesize");
         this.timeout = (int) serverSocket.get("timeout");
-
-        Map client = (Map) configMap.get("client");
-        Map clientSocket = (Map) client.get("socket");
-        this.clientSocketPort = (int) clientSocket.get("port");
-
     }
 
     public static GlobalConfig getConfig(){
@@ -58,10 +50,6 @@ public class GlobalConfig {
 
     public int getServerSocketPort() {
         return serverSocketPort;
-    }
-
-    public int getClientSocketPort() {
-        return clientSocketPort;
     }
 
     public int getQueueSize() {
@@ -77,7 +65,6 @@ public class GlobalConfig {
     public String toString() {
         return "GlobalConfig{" +
                 "serverSocketPort=" + serverSocketPort +
-                ", clientSocketPort=" + clientSocketPort +
                 ", queueSize=" + queueSize +
                 ", timeout=" + timeout +
                 '}';

@@ -5,6 +5,3 @@ server:
     queuesize: 50
     # 10?
     timeout: 10000
-client:
-  socket:
-    port: 51314
