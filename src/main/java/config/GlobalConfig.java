@@ -21,8 +21,8 @@ public class GlobalConfig {
     private final int queueSize;
     private final int timeout;
 
-
     private GlobalConfig() {
+        //https://github.com/FasterXML/jackson-dataformats-text/tree/2.14/yaml
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         Map configMap = null;
         try(FileInputStream fis = new FileInputStream(configFilePath)){
@@ -72,13 +72,14 @@ public class GlobalConfig {
         return timeout;
     }
 
+
     @Override
     public String toString() {
         return "GlobalConfig{" +
-                " serverSocketPort='" + serverSocketPort + '\'' +
-                ", clientSocketPort='" + clientSocketPort + '\'' +
-                ", queueSize='" + queueSize + '\'' +
-                ", timeout='" + timeout + '\'' +
+                "serverSocketPort=" + serverSocketPort +
+                ", clientSocketPort=" + clientSocketPort +
+                ", queueSize=" + queueSize +
+                ", timeout=" + timeout +
                 '}';
     }
 }
