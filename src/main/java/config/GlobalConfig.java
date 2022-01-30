@@ -16,10 +16,10 @@ public class GlobalConfig {
     private final String configFilePath = "target/classes/global-config.yml";
 
     private static GlobalConfig singleInstance = new GlobalConfig();
-    private final String serverSocketPort;
-    private final String clientSocketPort;
-    private final String queueSize;
-    private final String timeout;
+    private final int serverSocketPort;
+    private final int clientSocketPort;
+    private final int queueSize;
+    private final int timeout;
 
 
     private GlobalConfig() {
@@ -36,15 +36,15 @@ public class GlobalConfig {
             log.debug(configMap.toString());
         }
         Map server = (Map) configMap.get("server");
-        Map<String,String> serverSocket = (Map) server.get("socket");
+        Map serverSocket = (Map) server.get("socket");
 
-        this.serverSocketPort = serverSocket.get("port");
-        this.queueSize = serverSocket.get("queuesize");
-        this.timeout = serverSocket.get("timeout");
+        this.serverSocketPort = (int) serverSocket.get("port");
+        this.queueSize = (int) serverSocket.get("queuesize");
+        this.timeout = (int) serverSocket.get("timeout");
 
         Map client = (Map) configMap.get("client");
-        Map<String,String> clientSocket = (Map) client.get("socket");
-        this.clientSocketPort = clientSocket.get("port");
+        Map clientSocket = (Map) client.get("socket");
+        this.clientSocketPort = (int) clientSocket.get("port");
 
     }
 
@@ -52,30 +52,30 @@ public class GlobalConfig {
         return singleInstance;
     }
 
-    public String getServerSocketPort() {
+    public static GlobalConfig getSingleInstance() {
+        return singleInstance;
+    }
+
+    public int getServerSocketPort() {
         return serverSocketPort;
     }
 
-    public String getConfigFilePath() {
-        return configFilePath;
-    }
-
-    public String getClientSocketPort() {
+    public int getClientSocketPort() {
         return clientSocketPort;
     }
 
-    public String getQueueSize() {
+    public int getQueueSize() {
         return queueSize;
     }
 
-    public String getTimeout() {
+    public int getTimeout() {
         return timeout;
     }
 
     @Override
     public String toString() {
         return "GlobalConfig{" +
-                ", serverSocketPort='" + serverSocketPort + '\'' +
+                " serverSocketPort='" + serverSocketPort + '\'' +
                 ", clientSocketPort='" + clientSocketPort + '\'' +
                 ", queueSize='" + queueSize + '\'' +
                 ", timeout='" + timeout + '\'' +

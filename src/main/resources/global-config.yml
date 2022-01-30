@@ -1,8 +1,8 @@
 server:
   socket:
-    port: '51313'
-    queuesize: '5'
-    timeout: '10'
+    port: 51313
+    queuesize: 5
+    timeout: 10
 client:
   socket:
-    port: '51314'
+    port: 51314
