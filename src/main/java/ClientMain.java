@@ -1,6 +1,7 @@
 import config.GlobalConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import server.task.TaskFlag;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +18,11 @@ public class ClientMain {
             try(PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 ){
+
+                out.append(TaskFlag.ECHO_TASK.getFlag());
+                out.append("\n");
                 out.println("12345");
+
                 String line = "";
                 while((line = in.readLine()) != null ){
                     log.debug(line);
