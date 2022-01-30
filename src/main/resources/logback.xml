@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=yjhyjh5369&logNo=221286951308 -->
+<configuration scan="true" scanPeriod="30 seconds">
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern> %d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/socket-app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 파일이 하루에 한개씩 생성된다 -->
+            <fileNamePattern>socket-app.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- maxHistory 지난 파일은 삭제가 된다.-->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+<!--    <logger name="com.sujemall.webapp" level="debug"/>-->
+    <root level="debug">
+        <appender-ref ref="console"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>
