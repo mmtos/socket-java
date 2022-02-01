@@ -17,6 +17,8 @@ public class MyServer {
     private ServerSocket serverSocket;
     public static final String SUCCESS = "SUCCESS";
     public static final String FAILURE = "FAILURE";
+    public static final String TERMINATE_CODE = "-_EOF_-";
+
 
     private void initServerSocket(){
         try{
