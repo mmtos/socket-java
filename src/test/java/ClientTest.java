@@ -38,8 +38,23 @@ public class ClientTest {
         Assertions.assertTrue(response.contains(MyServer.FAILURE));
     }
 
+    @Test
+    @DisplayName("EchoTask 연속 통신 테스트")
+    void test2(){
+        String response = myClient.sendMessage("abeaf");
+        log.debug(response);
+
+        String response2 = myClient.sendMessage("fkewo");
+        log.debug(response2);
+
+        Assertions.assertEquals(MyServer.SUCCESS,response);
+        Assertions.assertEquals(MyServer.SUCCESS,response2);
+    }
+
+
     @AfterEach
     void 테스트_종료(){
+        myClient.sendTerminateCode();
         myClient.close();
         log.info("테스트를 종료합니다.");
     }
