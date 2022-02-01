@@ -3,6 +3,7 @@ package client;
 import config.GlobalConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import server.MyServer;
 import server.task.TaskFlag;
 
 import java.io.BufferedReader;
@@ -29,24 +30,34 @@ public class MyClient {
 
     public String sendMessage(String message){
         StringBuilder response = new StringBuilder();
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true)
-        ){
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
+
             writer.append(TaskFlag.ECHO_TASK.getFlag());
             writer.append("\n");
             writer.println(message);
-            String line = null;
-            while((line = reader.readLine()) != null ){
-                response.append(line);
+            String firstLine = reader.readLine();
+            response.append(firstLine);
+            if (MyServer.FAILURE.equals(firstLine)) {
                 response.append("\n");
+                String failureInfo = reader.readLine();
+                response.append(failureInfo);
             }
-            response.deleteCharAt(response.length()-1);
-        } catch (IOException e) {
+        }catch (IOException e){
             e.printStackTrace();
-        } finally {
-            this.close();
         }
         return response.toString();
+    }
+
+    public void sendTerminateCode(){
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
+            writer.println(MyServer.TERMINATE_CODE);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void close(){
