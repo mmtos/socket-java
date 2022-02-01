@@ -12,3 +12,7 @@
 - ThreadExcutor : https://codechacha.com/ko/java-executors/
 - execute() vs submit() : https://passiflore.tistory.com/35
 - Socket Example : https://www.baeldung.com/a-guide-to-java-sockets
+
+- Test
+  - https://kgvovc.tistory.com/58
+  - https://mangkyu.tistory.com/143
