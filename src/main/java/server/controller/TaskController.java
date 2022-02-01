@@ -1,5 +1,6 @@
 package server.controller;
 
+import exception.CustomException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import server.MyServer;
@@ -37,13 +38,26 @@ public class TaskController implements Runnable{
         ) {
             //첫번째 라인의 값으로 task 판단
             String inputs = reader.readLine();
-            TaskFlag taskFlag = TaskFlag.getTaskFlag(inputs);
-            ServerTask serverTask = getSeverTask(taskFlag);
-            serverTask.doProcess(reader,writer);
+            TaskFlag taskFlag = null;
+            try {
+                taskFlag = TaskFlag.getTaskFlag(inputs);
+            } catch (UnsupportedOperationException e){
+                writer.append(MyServer.FAILURE + "\n");
+                writer.println(e.getMessage());
+            }
 
-            writer.println("통신 완료");
-        }catch (UnsupportedOperationException e){
-            log.warn("can't find the task flag", e);
+            ServerTask serverTask = getSeverTask(taskFlag);
+
+            if(serverTask != null){
+                try{
+                    serverTask.doProcess(reader,writer);
+                    writer.println(MyServer.SUCCESS);
+                }catch (CustomException e ){
+                    log.warn("Task Handling 문제발생",e);
+                    writer.append(MyServer.FAILURE + "\n");
+                    writer.println(e.getMessage());
+                }
+            }
         }catch (IOException e){
             log.error("BufferedReader 생성 실패...",e);
         }

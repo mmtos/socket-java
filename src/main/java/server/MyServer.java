@@ -3,11 +3,8 @@ package server;
 import config.GlobalConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import server.task.EchoTask;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -18,6 +15,8 @@ public class MyServer {
     private int backlog;
     private int timeout;
     private ServerSocket serverSocket;
+    public static final String SUCCESS = "SUCCESS";
+    public static final String FAILURE = "FAILURE";
 
     private void initServerSocket(){
         try{

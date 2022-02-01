@@ -20,6 +20,6 @@ public enum TaskFlag {
         for (TaskFlag task : tasks) {
             if (task.flag.equals(flag)) return task;
         }
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("can't find the task flag");
     }
 }

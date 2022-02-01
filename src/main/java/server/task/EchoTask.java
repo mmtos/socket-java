@@ -18,15 +18,11 @@ public class EchoTask implements ServerTask{
     }
 
     @Override
-    public void doProcess(BufferedReader reader, PrintWriter writer) throws IOException{
-        try {
-            String inputs = reader.readLine();
-            if(!checkInputMessage(inputs)) {
-                throw new CustomException("커스텀 예외 발생..");
-            }
-            echo(inputs);
-        }catch (CustomException e){
-            log.warn("message 유효성 검사 실패 : {}", e);
+    public void doProcess(BufferedReader reader, PrintWriter writer) throws IOException, CustomException{
+        String inputs = reader.readLine();
+        if(!checkInputMessage(inputs)) {
+            throw new CustomException("message의 길이가 5자여야 합니다.");
         }
+        echo(inputs);
     }
 }
