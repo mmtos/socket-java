@@ -37,27 +37,34 @@ public class TaskController implements Runnable{
             PrintWriter writer = new PrintWriter(out, true);
         ) {
             //첫번째 라인의 값으로 task 판단
-            String inputs = reader.readLine();
-            TaskFlag taskFlag = null;
-            try {
-                taskFlag = TaskFlag.getTaskFlag(inputs);
-            } catch (UnsupportedOperationException e){
-                writer.append(MyServer.FAILURE + "\n");
-                writer.println(e.getMessage());
-            }
-
-            ServerTask serverTask = getSeverTask(taskFlag);
-
-            if(serverTask != null){
-                try{
-                    serverTask.doProcess(reader,writer);
-                    writer.println(MyServer.SUCCESS);
-                }catch (CustomException e ){
-                    log.warn("Task Handling 문제발생",e);
+            String taskCode = reader.readLine();
+            while(true){
+                TaskFlag taskFlag = null;
+                try {
+                    taskFlag = TaskFlag.getTaskFlag(taskCode);
+                } catch (UnsupportedOperationException e){
                     writer.append(MyServer.FAILURE + "\n");
                     writer.println(e.getMessage());
                 }
+
+                ServerTask serverTask = getSeverTask(taskFlag);
+
+                if(serverTask != null){
+                    try{
+                        serverTask.doProcess(reader,writer);
+                        writer.println(MyServer.SUCCESS);
+                    }catch (CustomException e ){
+                        log.warn("Task Handling 문제발생",e);
+                        writer.append(MyServer.FAILURE + "\n");
+                        writer.println(e.getMessage());
+                    }
+                }
+                String nextMessage = reader.readLine();
+                if(MyServer.TERMINATE_CODE.equals(nextMessage)) return;
+
+                taskCode = nextMessage;
             }
+
         }catch (IOException e){
             log.error("BufferedReader 생성 실패...",e);
         }
