@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import server.MyServer;
 
 public class ClientTest {
-    static Logger log = LoggerFactory.getLogger(ClientTest.class);
+    static final Logger log = LoggerFactory.getLogger(ClientTest.class);
     MyClient myClient;
 
     @BeforeEach

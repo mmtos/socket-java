@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.net.SocketException;
 
 public class MyServer {
-    static Logger log = LoggerFactory.getLogger(MyServer.class);
+    static final Logger log = LoggerFactory.getLogger(MyServer.class);
     private int port;
     private int backlog;
     private int timeout;

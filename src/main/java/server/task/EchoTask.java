@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 
 public class EchoTask implements ServerTask{
-    static Logger log = LoggerFactory.getLogger(EchoTask.class);
+    static final Logger log = LoggerFactory.getLogger(EchoTask.class);
 
     private boolean checkInputMessage(String message){
         return message.length() == 5;

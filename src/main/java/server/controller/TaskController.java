@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TaskController implements Runnable{
-    static Logger log = LoggerFactory.getLogger(TaskController.class);
+    static final Logger log = LoggerFactory.getLogger(TaskController.class);
     private MyServer myServer;
     private ExecutorService taskThreadPool;
 

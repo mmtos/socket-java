@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class MyClient {
-    static Logger log = LoggerFactory.getLogger(MyClient.class);
+    static final Logger log = LoggerFactory.getLogger(MyClient.class);
     private int port;
     private String host="127.0.0.1";
     private Socket clientSocket;

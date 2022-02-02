@@ -12,10 +12,10 @@ import java.io.IOException;
 import java.util.Map;
 
 public class GlobalConfig {
-    static Logger log = LoggerFactory.getLogger(GlobalConfig.class);
+    static final Logger log = LoggerFactory.getLogger(GlobalConfig.class);
     private final String configFilePath = "target/classes/global-config.yml";
 
-    private static GlobalConfig singleInstance = new GlobalConfig();
+    private static final GlobalConfig singleInstance = new GlobalConfig();
     private final int serverSocketPort;
     private final int queueSize;
     private final int timeout;
