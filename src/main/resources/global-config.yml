@@ -5,3 +5,4 @@ server:
     queuesize: 50
     # 10?
     timeout: 10000
+    taskthread: 5

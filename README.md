@@ -8,12 +8,15 @@
 - [x] MyClient 정의 
 - [x] Server 테스트 코드 작성 
 - [x] Terminate 코드정의 (Terminate 코드받기 전까지 통신 지속)
+- [x] accept() 이후 작업을 다른 스레드에서 진행하도록 변경
 - [ ] myServer 생성시 keep alive 검토 후 도입 (재연결 비용 감소 목적)
 
 # Link 
 - ThreadExcutor : https://codechacha.com/ko/java-executors/
 - execute() vs submit() : https://passiflore.tistory.com/35
-- Socket Example : https://www.baeldung.com/a-guide-to-java-sockets
+- Socket Example : 
+  - https://www.baeldung.com/a-guide-to-java-sockets
+  - https://nowonbun.tistory.com/315 (accept 이후 작업을 다른 스레드에서 진행)
 
 - Test
   - https://kgvovc.tistory.com/58

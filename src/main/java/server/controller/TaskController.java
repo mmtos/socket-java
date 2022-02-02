@@ -1,5 +1,6 @@
 package server.controller;
 
+import config.GlobalConfig;
 import exception.CustomException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,13 +12,19 @@ import server.task.TaskFlag;
 import java.io.*;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class TaskController implements Runnable{
     static Logger log = LoggerFactory.getLogger(TaskController.class);
     private MyServer myServer;
+    private ExecutorService taskThreadPool;
+
+
 
     public TaskController() {
         this.myServer = new MyServer();
+        this.taskThreadPool= Executors.newFixedThreadPool(GlobalConfig.getConfig().getTaskThreadCnt());
     }
 
     public TaskController(MyServer myServer) {
@@ -73,12 +80,21 @@ public class TaskController implements Runnable{
     @Override
     public void run() {
         while(true){
-            try(Socket clientSocket = this.myServer.accept();) {
-                doHandling(clientSocket.getInputStream(),clientSocket.getOutputStream());
+            try {
+                Socket clientSocket = this.myServer.accept();
+                taskThreadPool.submit(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            doHandling(clientSocket.getInputStream(), clientSocket.getOutputStream());
+                        }catch (IOException e) {
+                            log.error("accept 중 문제발생..",e);
+                        }
+                    }
+                });
+
             }catch (SocketTimeoutException e){
                 log.warn("timeout 발생.. accept 재시도");
-            }catch (IOException e) {
-                log.error("accept 중 문제발생..",e);
             }catch (Exception e) {
                 log.error("알수없는 오류 발생",e);
                 new RuntimeException("알수없는 오류 발생",e);

@@ -19,6 +19,8 @@ public class GlobalConfig {
     private final int serverSocketPort;
     private final int queueSize;
     private final int timeout;
+    private final int taskThreadCnt;
+
 
     private GlobalConfig() {
         //https://github.com/FasterXML/jackson-dataformats-text/tree/2.14/yaml
@@ -38,6 +40,8 @@ public class GlobalConfig {
         this.serverSocketPort = (int) serverSocket.get("port");
         this.queueSize = (int) serverSocket.get("queuesize");
         this.timeout = (int) serverSocket.get("timeout");
+        this.taskThreadCnt = (int) serverSocket.get("taskthread");
+
     }
 
     public static GlobalConfig getConfig(){
@@ -60,6 +64,9 @@ public class GlobalConfig {
         return timeout;
     }
 
+    public int getTaskThreadCnt() {
+        return taskThreadCnt;
+    }
 
     @Override
     public String toString() {
@@ -67,6 +74,7 @@ public class GlobalConfig {
                 "serverSocketPort=" + serverSocketPort +
                 ", queueSize=" + queueSize +
                 ", timeout=" + timeout +
+                ", taskThreadCnt=" + taskThreadCnt +
                 '}';
     }
 }
